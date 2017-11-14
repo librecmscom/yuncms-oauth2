@@ -1,0 +1,63 @@
+{
+  "name": "yuncms/yuncms-oauth2",
+  "description": "The OAuth2 module for the yuncms.",
+  "keywords": [
+    "yii2",
+    "oauth2",
+    "oauth2-server"
+  ],
+  "homepage": "https://github.com/yuncms/yuncms-oauth2",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/yuncms/yii2-oauth2/issues",
+    "source": "https://github.com/yuncms/yii2-oauth2"
+  },
+  "authors": [
+    {
+      "name": "Andrey Borodulin",
+      "email": "borodulin@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0.6",
+    "jakeasmith/http_build_url": "~1.0",
+    "yuncms/yuncms-user": "~2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "yuncms\\oauth2\\": ""
+    }
+  },
+  "extra": {
+    "yuncms": {
+      "name": "oauth2",
+      "i18n": {
+        "class": "yii\\i18n\\PhpMessageSource",
+        "sourceLanguage": "en-US",
+        "basePath": "@yuncms/oauth2/messages"
+      },
+      "migrationNamespace": "yuncms\\oauth2\\migrations",
+      "backend": {
+        "class": "yuncms\\oauth2\\backend\\Module"
+      },
+      "frontend": {
+        "class": "yuncms\\oauth2\\frontend\\Module"
+      }
+    },
+    "bootstrap": "yuncms\\oauth2\\Bootstrap",
+    "branch-alias": {
+      "dev-master": "2.0-dev"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  ]
+}
