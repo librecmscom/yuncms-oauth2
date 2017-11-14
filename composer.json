@@ -10,8 +10,8 @@
   "type": "yii2-extension",
   "license": "MIT",
   "support": {
-    "issues": "https://github.com/yuncms/yii2-oauth2/issues",
-    "source": "https://github.com/yuncms/yii2-oauth2"
+    "issues": "https://github.com/yuncms/yuncms-oauth2/issues",
+    "source": "https://github.com/yuncms/yuncms-oauth2"
   },
   "authors": [
     {
@@ -46,7 +46,7 @@
       }
     },
     "branch-alias": {
-      "dev-master": "2.0-dev"
+      "dev-master": "2.0.0-dev"
     }
   },
   "repositories": [
