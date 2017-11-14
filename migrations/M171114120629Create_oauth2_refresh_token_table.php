@@ -17,7 +17,7 @@ class M171114120629Create_oauth2_refresh_token_table extends Migration
 
         $this->createTable('{{%oauth2_refresh_token}}', [
             'refresh_token' => $this->string(40)->notNull()->comment('Refresh Token'),
-            'client_id' => $this->integer()->notNull()->comment('Client Id'),
+            'client_id' => $this->integer()->unsigned()->notNull()->comment('Client Id'),
             'user_id' => $this->integer()->comment('User Id'),
             'expires' => $this->integer()->notNull()->comment('Expires'),
             'scope' => $this->text()->comment('Scope'),
