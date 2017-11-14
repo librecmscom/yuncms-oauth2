@@ -45,7 +45,6 @@
         "class": "yuncms\\oauth2\\frontend\\Module"
       }
     },
-    "bootstrap": "yuncms\\oauth2\\Bootstrap",
     "branch-alias": {
       "dev-master": "2.0-dev"
     }
