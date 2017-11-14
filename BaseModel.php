@@ -110,19 +110,19 @@ abstract class BaseModel extends Model
         return $this->_client;
     }
 
-    public function validateClient_id($attribute, $params)
+    public function validateClientId($attribute, $params)
     {
         $this->getClient();
     }
 
-    public function validateClient_secret($attribute, $params)
+    public function validateClientSecret($attribute, $params)
     {
         if (!Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
             $this->addError($attribute, 'The client credentials are invalid');
         }
     }
 
-    public function validateRedirect_uri($attribute, $params)
+    public function validateRedirectUri($attribute, $params)
     {
         if (!empty($this->$attribute)) {
             $clientRedirectUri = $this->getClient()->redirect_uri;
