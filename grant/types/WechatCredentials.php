@@ -139,10 +139,11 @@ class WechatCredentials extends BaseModel
     {
         if ($this->_user === null) {
             $client = $this->wechat->oauth;
+            $client->useOpenId = false;//使用unionid
             $client->validateAuthState = false;
             $token = $client->fetchAccessToken($this->code);
             $tokenParams = $token->getParams();
-            if ($tokenParams['errcode']) {
+            if (isset($tokenParams['errcode'])) {
                 throw new ServerErrorHttpException($tokenParams['errmsg'], $tokenParams['errcode']);
             }
 
@@ -153,21 +154,17 @@ class WechatCredentials extends BaseModel
             if ($account->user instanceof User) {
                 $this->_user = $account->user;
             } else {
-                $nickname = $account->nickname;
-                if (mb_strlen($nickname) < 3) {
-                    $nickname = $nickname . '大佬';
-                }
                 /** @var \yuncms\user\models\User $user */
                 $user = Yii::createObject([
                     'class' => User::className(),
                     'scenario' => User::SCENARIO_CONNECT,
-                    'nickname' => $nickname,
+                    'nickname' => $account->username,
                 ]);
 
                 // generate nickname like "user1", "user2", etc...
                 while (!$user->validate(['nickname'])) {
                     $row = (new Query())->from('{{%user}}')->select('MAX(id) as id')->one();
-                    $user->nickname = $account->nickname . ++$row['id'];
+                    $user->nickname = $account->username . ++$row['id'];
                 }
 
                 if ($user->create()) {
