@@ -14,6 +14,7 @@ use yii\web\ServerErrorHttpException;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
 use yuncms\oauth2\BaseModel;
+use yuncms\user\jobs\SocialAvatarDownloadJob;
 use yuncms\user\models\User;
 use yuncms\user\models\UserSocialAccount;
 
@@ -168,6 +169,8 @@ class WechatCredentials extends BaseModel
                 }
 
                 if ($user->create()) {
+                    //新注册的用户 此处开始下载微信头像保存到本地
+                    Yii::$app->queue->push(new SocialAvatarDownloadJob(['user_id'=>$user->id,'faceUrl'=>$client->getUserAttributes()['headimgurl']]));
                     $account->connect($user);
                 }
                 if ($user->hasErrors()) {
