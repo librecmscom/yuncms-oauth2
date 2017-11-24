@@ -169,9 +169,9 @@ class WechatCredentials extends BaseModel
                 }
 
                 if ($user->create()) {
+                    $account->connect($user);
                     //新注册的用户 此处开始下载微信头像保存到本地
                     Yii::$app->queue->push(new SocialAvatarDownloadJob(['user_id'=>$user->id,'faceUrl'=>$client->getUserAttributes()['headimgurl']]));
-                    $account->connect($user);
                 }
                 if ($user->hasErrors()) {
                     throw new ServerErrorHttpException('Failed to login the user for unknown reason.');
