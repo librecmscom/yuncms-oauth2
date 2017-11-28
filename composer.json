@@ -38,6 +38,13 @@
         "basePath": "@yuncms/oauth2/messages"
       },
       "migrationNamespace": "yuncms\\oauth2\\migrations",
+      "cron": [
+        {
+          "class": "yuncms\\core\\console\\controllers\\CronController",
+          "event": "yuncms\\core\\console\\controllers\\CronController::EVENT_ON_HOURLY_RUN",
+          "callback": "yuncms\\oauth2\\Cron::clear()"
+        }
+      ],
       "backend": {
         "class": "yuncms\\oauth2\\backend\\Module"
       },
