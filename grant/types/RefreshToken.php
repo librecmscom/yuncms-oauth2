@@ -59,6 +59,14 @@ class RefreshToken extends BaseModel
         ];
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\base\Exception
+     * @throws \yii\db\StaleObjectException
+     * @throws \yuncms\oauth2\Exception
+     */
     public function getResponseData()
     {
         /** @var  \yuncms\oauth2\models\RefreshToken $refreshToken */
@@ -90,6 +98,11 @@ class RefreshToken extends BaseModel
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws \yuncms\oauth2\Exception
+     */
     public function validateRefreshToken($attribute, $params)
     {
         $this->getRefreshToken();
@@ -98,6 +111,7 @@ class RefreshToken extends BaseModel
     /**
      *
      * @return \yuncms\oauth2\models\RefreshToken
+     * @throws \yuncms\oauth2\Exception
      */
     public function getRefreshToken()
     {

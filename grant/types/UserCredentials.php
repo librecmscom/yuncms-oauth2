@@ -93,6 +93,7 @@ class UserCredentials extends BaseModel
      *
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
+     * @throws \yuncms\oauth2\Exception
      */
     public function validatePassword($attribute, $params)
     {
@@ -139,6 +140,8 @@ class UserCredentials extends BaseModel
      * Finds user by [[username]]
      *
      * @return \yuncms\user\models\User|null
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yuncms\oauth2\Exception
      */
     protected function getUser()
     {

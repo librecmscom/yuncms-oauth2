@@ -55,6 +55,8 @@ class Authorize extends ActionFilter
      * so, user can go from our authorization server to the third party OAuth provider.
      * You should call finishAuthorization() in the current controller to finish client authorization
      * or to stop with Access Denied error message if the user is not logged on.
+     * @throws Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function beforeAction($action)
     {
@@ -79,6 +81,7 @@ class Authorize extends ActionFilter
     /**
      * If user is logged on, do oauth login immediatly,
      * continue authorization in the another case
+     * @throws Exception
      */
     public function afterAction($action, $result)
     {
@@ -109,6 +112,7 @@ class Authorize extends ActionFilter
      * Finish oauth authorization.
      * Builds redirect uri and performs redirect.
      * If user is not logged on, redirect contains the Access Denied Error
+     * @throws Exception
      */
     public function finishAuthorization()
     {

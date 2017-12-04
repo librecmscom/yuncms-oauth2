@@ -9,9 +9,11 @@ namespace yuncms\oauth2\frontend\models;
 
 use Yii;
 use yii\base\Model;
+use yuncms\user\UserTrait;
 use yuncms\user\models\User;
-use yuncms\user\helpers\Password;
-use yuncms\user\models\LoginHistory;
+use yuncms\core\helpers\PasswordHelper;
+use yuncms\user\models\UserLoginHistory;
+
 
 /**
  * LoginForm get user's login and password, validates them and logs the user in. If user has been blocked, it adds
@@ -19,6 +21,8 @@ use yuncms\user\models\LoginHistory;
  */
 class LoginForm extends Model
 {
+    use UserTrait;
+
     /**
      * @var string User's email or mobile
      */
@@ -29,22 +33,9 @@ class LoginForm extends Model
     public $password;
 
     /**
-     * @var \yuncms\user\models\User
+     * @var User
      */
     protected $user;
-
-    protected $rememberFor;
-    protected $enableUnconfirmedLogin;
-    protected $enableConfirmation;
-
-    public function init()
-    {
-        parent::init();
-        $this->rememberFor = Yii::$app->settings->get('rememberFor', 'user');
-        $this->enableConfirmation = Yii::$app->settings->get('enableConfirmation', 'user');
-        $this->enableUnconfirmedLogin = Yii::$app->settings->get('enableUnconfirmedLogin', 'user');
-    }
-
 
     /**
      * @inheritdoc
@@ -68,7 +59,7 @@ class LoginForm extends Model
             'passwordValidate' => [
                 'password',
                 function ($attribute) {
-                    if ($this->user === null || !Password::validate($this->password, $this->user->password_hash)) {
+                    if ($this->user === null || !PasswordHelper::validate($this->password, $this->user->password_hash)) {
                         $this->addError($attribute, Yii::t('oauth2', 'Invalid login or password'));
                     }
                 }
@@ -77,7 +68,7 @@ class LoginForm extends Model
                 'login',
                 function ($attribute) {
                     if ($this->user !== null) {
-                        $confirmationRequired = $this->enableConfirmation && !$this->enableUnconfirmedLogin;
+                        $confirmationRequired = $this->getSetting('enableConfirmation') && !$this->getSetting('enableUnconfirmedLogin');
                         if ($confirmationRequired && !$this->user->isEmailConfirmed) {
                             $this->addError($attribute, Yii::t('oauth2', 'You need to confirm your email address.'));
                         }
@@ -98,10 +89,10 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            $loginHistory = new LoginHistory(['ip' => Yii::$app->request->getUserIP()]);
+            $loginHistory = new UserLoginHistory(['ip' => Yii::$app->request->getUserIP()]);
             $loginHistory->link('user', $this->user);
 
-            return Yii::$app->getUser()->login($this->user, $this->rememberFor);
+            return Yii::$app->getUser()->login($this->user, $this->getSetting('rememberFor'));
         } else {
             return false;
         }

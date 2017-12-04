@@ -71,6 +71,7 @@ class AuthorizationCode extends ActiveRecord
      * @param array $params
      * @throws Exception
      * @return \yuncms\oauth2\models\AuthorizationCode
+     * @throws \yii\base\Exception
      */
     public static function createAuthorizationCode(array $params)
     {

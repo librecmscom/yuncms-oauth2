@@ -76,6 +76,7 @@ class WechatCredentials extends BaseModel
 
     /**
      * 初始化模型
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -135,6 +136,8 @@ class WechatCredentials extends BaseModel
     /**
      * @return null|object|\yuncms\user\models\User
      * @throws ServerErrorHttpException
+     * @throws \yii\web\HttpException
+     * @throws InvalidConfigException
      */
     protected function getUser()
     {

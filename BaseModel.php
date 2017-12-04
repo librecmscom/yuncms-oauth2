@@ -58,16 +58,32 @@ abstract class BaseModel extends Model
         }
     }
 
+    /**
+     * @param $attribute
+     * @param string $error
+     * @throws Exception
+     */
     public function addError($attribute, $error = "")
     {
         throw new Exception($error, Exception::INVALID_REQUEST);
     }
 
+    /**
+     * @param $error
+     * @param string $type
+     * @throws Exception
+     */
     public function errorServer($error, $type = Exception::INVALID_REQUEST)
     {
         throw new Exception($error, Exception::INVALID_REQUEST);
     }
 
+    /**
+     * @param $error
+     * @param string $type
+     * @throws Exception
+     * @throws RedirectException
+     */
     public function errorRedirect($error, $type = Exception::INVALID_REQUEST)
     {
         $redirectUri = isset($this->redirect_uri) ? $this->redirect_uri : $this->getClient()->redirect_uri;
@@ -96,6 +112,7 @@ abstract class BaseModel extends Model
     /**
      *
      * @return \yuncms\oauth2\models\Client
+     * @throws Exception
      */
     public function getClient()
     {
@@ -110,11 +127,21 @@ abstract class BaseModel extends Model
         return $this->_client;
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws Exception
+     */
     public function validateClientId($attribute, $params)
     {
         $this->getClient();
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws Exception
+     */
     public function validateClientSecret($attribute, $params)
     {
         if (!Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
@@ -122,6 +149,11 @@ abstract class BaseModel extends Model
         }
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws Exception
+     */
     public function validateRedirectUri($attribute, $params)
     {
         if (!empty($this->$attribute)) {
@@ -132,6 +164,12 @@ abstract class BaseModel extends Model
         }
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws Exception
+     * @throws RedirectException
+     */
     public function validateScope($attribute, $params)
     {
         if (!$this->checkSets($this->$attribute, $this->_client->scope)) {

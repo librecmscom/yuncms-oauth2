@@ -100,6 +100,7 @@ class ClientCredentials extends BaseModel
      * Finds user
      *
      * @return \yuncms\user\models\User|null
+     * @throws \yuncms\oauth2\Exception
      */
     protected function getUser()
     {

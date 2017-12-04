@@ -7,6 +7,7 @@
 
 namespace yuncms\oauth2\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\VarDumper;
 use yuncms\oauth2\Exception;
@@ -67,12 +68,13 @@ class RefreshToken extends ActiveRecord
      * @param array $attributes
      * @throws Exception
      * @return \yuncms\oauth2\models\RefreshToken
+     * @throws \yii\base\Exception
      */
     public static function createRefreshToken(array $attributes)
     {
         static::deleteAll(['<', 'expires', time()]);
 
-        $attributes['refresh_token'] = \Yii::$app->security->generateRandomString(40);
+        $attributes['refresh_token'] = Yii::$app->security->generateRandomString(40);
         $refreshToken = new static($attributes);
 
         if ($refreshToken->save()) {

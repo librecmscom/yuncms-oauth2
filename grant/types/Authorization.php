@@ -69,6 +69,11 @@ class Authorization extends BaseModel
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws Exception
+     */
     public function validateRedirectUri($attribute, $params)
     {
         $authCode = $this->getAuthCode();
@@ -79,6 +84,14 @@ class Authorization extends BaseModel
         parent::validateRedirectUri($attribute, $params);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\base\Exception
+     * @throws \yii\db\StaleObjectException
+     */
     public function getResponseData()
     {
         $authCode = $this->getAuthCode();
@@ -111,6 +124,12 @@ class Authorization extends BaseModel
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * @throws Exception
+     * @throws \yuncms\oauth2\RedirectException
+     */
     public function validateCode($attribute, $params)
     {
         $this->getAuthCode();
@@ -119,6 +138,8 @@ class Authorization extends BaseModel
     /**
      *
      * @return \yuncms\oauth2\models\AuthorizationCode
+     * @throws Exception
+     * @throws \yuncms\oauth2\RedirectException
      */
     public function getAuthCode()
     {

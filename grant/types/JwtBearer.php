@@ -18,5 +18,8 @@ use yuncms\oauth2\BaseModel;
  */
 class JwtBearer extends BaseModel
 {
-
+    function getResponseData()
+    {
+        // TODO: Implement getResponseData() method.
+    }
 }

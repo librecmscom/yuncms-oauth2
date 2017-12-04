@@ -67,6 +67,7 @@ class AccessToken extends ActiveRecord
      * @param array $attributes
      * @throws Exception
      * @return AccessToken
+     * @throws \yii\base\Exception
      */
     public static function createAccessToken(array $attributes)
     {
@@ -95,9 +96,11 @@ class AccessToken extends ActiveRecord
      */
     public function getUser()
     {
-        $identity = isset(Yii::$app->user->identity) ? Yii::$app->user->identity : null;
-        if ($identity instanceof ActiveRecord) {
-            return $this->hasOne(get_class($identity), ['user_id' => $identity->primaryKey()]);
-        }
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+
+//        $identity = isset(Yii::$app->user->identity) ? Yii::$app->user->identity : null;
+//        if ($identity instanceof ActiveRecord) {
+//            return $this->hasOne(get_class($identity), ['id' => $identity->primaryKey()]);
+//        }
     }
 }

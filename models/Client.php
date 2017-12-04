@@ -98,6 +98,7 @@ class Client extends ActiveRecord
 
     /**
      * 生成 ClientKey
+     * @throws \yii\base\Exception
      */
     public function generateClientKey()
     {
