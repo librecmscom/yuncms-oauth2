@@ -31,8 +31,8 @@
   },
   "extra": {
     "yuncms": {
-      "name": "oauth2",
-      "i18n": {
+      "id": "oauth2",
+      "translate": {
         "class": "yii\\i18n\\PhpMessageSource",
         "sourceLanguage": "en-US",
         "basePath": "@yuncms/oauth2/messages"
