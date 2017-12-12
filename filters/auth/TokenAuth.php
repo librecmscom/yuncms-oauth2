@@ -9,6 +9,7 @@ namespace yuncms\oauth2\filters\auth;
 
 use Yii;
 use yii\filters\auth\AuthMethod;
+use yii\web\Response;
 use yii\web\UnauthorizedHttpException;
 use yuncms\oauth2\models\AccessToken;
 
@@ -66,7 +67,7 @@ class TokenAuth extends AuthMethod
     }
 
     /**
-     * @inheritdoc
+     * @param Response $response
      */
     public function challenge($response)
     {

@@ -33,6 +33,8 @@ use yuncms\user\models\User;
  * @property AuthorizationCode[] $authorizationCodes
  * @property RefreshToken[] $refreshTokens
  * @property User $user
+ *
+ * @property-read bool $isAuthor 是否是作者
  */
 class Client extends ActiveRecord
 {
@@ -150,5 +152,14 @@ class Client extends ActiveRecord
     public function getRefreshTokens()
     {
         return $this->hasMany(RefreshToken::className(), ['client_id' => 'client_id']);
+    }
+
+    /**
+     * 是否是作者
+     * @return bool
+     */
+    public function getIsAuthor()
+    {
+        return $this->user_id == Yii::$app->user->id;
     }
 }

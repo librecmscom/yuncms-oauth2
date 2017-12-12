@@ -81,6 +81,9 @@ class Authorize extends ActionFilter
     /**
      * If user is logged on, do oauth login immediatly,
      * continue authorization in the another case
+     * @param \yii\base\Action $action
+     * @param mixed $result
+     * @return mixed
      * @throws Exception
      */
     public function afterAction($action, $result)

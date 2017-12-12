@@ -85,7 +85,9 @@ class ClientController extends Controller
     /**
      * Creates a new Rest model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -109,11 +111,15 @@ class ClientController extends Controller
      *
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if ($model->isAuthor()) {
+        if ($model->isAuthor) {
             $model->delete();
             Yii::$app->getSession()->setFlash('success', Yii::t('oauth2', 'successfully deleted'));
         }
@@ -123,7 +129,9 @@ class ClientController extends Controller
     /**
      * Creates a new Rest model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {

@@ -14,7 +14,6 @@ use yuncms\user\models\User;
 use yuncms\core\helpers\PasswordHelper;
 use yuncms\user\models\UserLoginHistory;
 
-
 /**
  * LoginForm get user's login and password, validates them and logs the user in. If user has been blocked, it adds
  * an error to login form.

@@ -10,12 +10,14 @@ namespace yuncms\oauth2\frontend\controllers;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
-use yuncms\user\models\Social;
+use yuncms\user\models\UserSocialAccount;
 use yuncms\oauth2\frontend\models\LoginForm;
 
 /**
  * Oauth2 登录控制器
  * @package yuncms\oauth2\controllers
+ * @property bool isOauthRequest
+ * @method finishAuthorization()
  */
 class AuthController extends Controller
 {
@@ -95,9 +97,9 @@ class AuthController extends Controller
      */
     public function successCallback($client)
     {
-        $account = Social::find()->byClient($client)->one();
+        $account = UserSocialAccount::find()->byClient($client)->one();
         if ($account === null) {
-            $account = Social::create($client);
+            $account = UserSocialAccount::create($client);
         }
         if ($account->user instanceof Yii::$app->user->id) {
             if ($account->user->isBlocked) {

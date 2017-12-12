@@ -52,6 +52,7 @@ class ClientController extends Controller
      * Displays a single Client model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -87,6 +88,7 @@ class ClientController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -110,6 +112,10 @@ class ClientController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -122,6 +128,10 @@ class ClientController extends Controller
      * Batch Delete existing Client model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionBatchDelete()
     {
