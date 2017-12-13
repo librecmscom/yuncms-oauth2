@@ -97,13 +97,6 @@ class QRCode extends BaseModel
             'scope' => $this->scope,
         ]);
 
-        $refreshToken = RefreshToken::createRefreshToken([
-            'client_id' => $this->client_id,
-            'user_id' => $accessToken->user->id,
-            'expires' => $this->refreshTokenLifetime + time(),
-            'scope' => $this->scope,
-        ]);
-
         $attributes = [
             'access_token' => $accessToken->access_token,
             'expires_in' => $this->accessTokenLifetime,
