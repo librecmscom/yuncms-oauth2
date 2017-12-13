@@ -109,9 +109,9 @@ class QRCode extends BaseModel
             'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $this->scope,
-            'refresh_token' => $refreshToken->refresh_token,
             'code' => $this->code,
-            'arg' => $this->arg
+            'msg' => Yii::t('oauth2', 'login successful.'),
+            'arg' => $this->arg,
         ];
         Yii::$app->cache->set([\yuncms\oauth2\actions\QRCode::CACHE_PREFIX, 'code' => $this->code], $attributes, 120);
         return $attributes;

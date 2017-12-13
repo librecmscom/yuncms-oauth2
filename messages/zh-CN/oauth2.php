@@ -79,6 +79,8 @@ return [
     'Unable to create access token' => '无法创建访问令牌',
     'Unable to create authorization code' => '无法创建授权码',
     'Update' => '更新',
+    'Please use App Scan QR code to login.' => '请使用App扫描二维码登录。',
+    'login successful.' => '登录成功',
     'Update App: ' => '更新应用:',
     'Update Client' => 'App更新',
     'Updated At' => '更新时间',

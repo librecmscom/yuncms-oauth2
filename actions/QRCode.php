@@ -47,7 +47,8 @@ class QRCode extends Action
         }
         $attributes = Yii::$app->cache->getOrSet([self::CACHE_PREFIX, 'code' => $code], function ($cache) use ($code) {
             return [
-                'code' => $code
+                'code' => $code,
+                'msg' => Yii::t('oauth2', 'Please use App Scan QR code to login.'),
             ];
         }, 120);
         Yii::$app->response->data = $attributes;
