@@ -12,6 +12,7 @@ use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
 use yuncms\oauth2\BaseModel;
 use yuncms\oauth2\OAuth2IdentityInterface;
+use yuncms\user\jobs\LoginHistoryJob;
 
 /**
  * For example, the client makes the following HTTP request using
@@ -127,6 +128,9 @@ class UserCredentials extends BaseModel
             'expires' => $this->refreshTokenLifetime + time(),
             'scope' => $this->scope,
         ]);
+
+        //更新最后登录时间
+        Yii::$app->queue->push(new LoginHistoryJob(['user_id' => $identity->id, 'ip' => Yii::$app->request->userIP]));
 
         return [
             'access_token' => $accessToken->access_token,

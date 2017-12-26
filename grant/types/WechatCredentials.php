@@ -14,6 +14,7 @@ use yii\web\ServerErrorHttpException;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
 use yuncms\oauth2\BaseModel;
+use yuncms\user\jobs\LoginHistoryJob;
 use yuncms\user\jobs\SocialAvatarDownloadJob;
 use yuncms\user\models\User;
 use yuncms\user\models\UserSocialAccount;
@@ -123,6 +124,9 @@ class WechatCredentials extends BaseModel
             'expires' => $this->refreshTokenLifetime + time(),
             'scope' => $this->scope,
         ]);
+
+        //更新最后登录时间
+        Yii::$app->queue->push(new LoginHistoryJob(['user_id' => $identity->id, 'ip' => Yii::$app->request->userIP]));
 
         return [
             'access_token' => $accessToken->access_token,
