@@ -8,8 +8,9 @@
 namespace yuncms\oauth2\grant\types;
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\db\Query;
+use yii\helpers\Inflector;
+use yii\base\InvalidConfigException;
 use yii\web\ServerErrorHttpException;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
@@ -172,7 +173,7 @@ class WechatCredentials extends BaseModel
                 // generate nickname like "user1", "user2", etc...
                 while (!$user->validate(['nickname'])) {
                     $row = (new Query())->from('{{%user}}')->select('MAX(id) as id')->one();
-                    $user->nickname = $account->username . ++$row['id'];
+                    $user->nickname = Inflector::slug($account->username) . ++$row['id'];
                 }
 
                 if ($user->create()) {
