@@ -147,7 +147,7 @@ class WechatCredentials extends BaseModel
     protected function getUser()
     {
         if ($this->_user === null) {
-            $client = $this->wechat->oauth;
+            $client = $this->wechat->openOAuth;
             $client->useOpenId = false;//使用unionid
             $client->validateAuthState = false;
             $token = $client->fetchAccessToken($this->code);
